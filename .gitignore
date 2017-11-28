@@ -1,0 +1,15 @@
+.project
+.pydevproject
+.cproject
+.settings
+*.exe
+*.o
+*.vtk
+*release*
+*debug*
+*.dat
+*.vsz
+*.csv
+*.db
+
+

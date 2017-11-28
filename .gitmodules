@@ -1,0 +1,12 @@
+[submodule "SCC/DoubleVectorNd"]
+	path = SCC/DoubleVectorNd
+	url = https://github.com/apmcollab/SCC-DoubleVectorNd.git
+[submodule "SCC/GridFunctionNd"]
+	path = SCC/GridFunctionNd
+	url = https://github.com/apmcollab/SCC-GridFunctionNd.git
+[submodule "SCC/MakeScripts"]
+	path = SCC/MakeScripts
+	url = https://github.com/apmcollab/SCC-MakeScripts.git
+[submodule "SCC/FFTW3_InterfaceNd"]
+	path = SCC/FFTW3_InterfaceNd
+	url = https://github.com/apmcollab/SCC-FFTW3_InterfaceNd.git
