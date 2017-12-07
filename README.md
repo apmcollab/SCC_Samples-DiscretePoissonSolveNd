@@ -1,6 +1,6 @@
 ## DiscretePoissonSolveNd
 
-A collection of sample programs demonstrating the use of FFT's to create the solution to the discrete Laplace equation with homogeneous boundary conditions in N-dimensions, N = 1,2,3. 
+A collection of sample programs demonstrating the use of FFT's to create the solution to the discrete Laplace equation with homogeneous boundary conditions in N-dimensions, N = 1,2,3.
 
 
 ### Prerequisites
@@ -12,5 +12,6 @@ Chris Anderson
 ### License
 GPLv3  For a copy of the GNU General Public License see <http://www.gnu.org/licenses/>.
 ### Acknowledgements
+
 
 
