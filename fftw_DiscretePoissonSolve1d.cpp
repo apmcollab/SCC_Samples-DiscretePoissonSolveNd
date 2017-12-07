@@ -49,6 +49,26 @@ using namespace std;
 // Nov. 27, 2017
 //
 //
+/*
+#############################################################################
+#
+# Copyright 2015-17 Chris Anderson
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the Lesser GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# For a copy of the GNU General Public License see
+# <http://www.gnu.org/licenses/>.
+#
+#############################################################################
+*/
 #include "GridFunctionNd/SCC_GridFunction1d.h"
 #include "DoubleVectorNd/SCC_DoubleVector1d.h"
 #include "FFTW3_InterfaceNd/SCC_fftw3_sin1d.h"

@@ -46,10 +46,32 @@ using namespace std;
 // Nov. 27, 2017
 //
 //
+/*
+#############################################################################
+#
+# Copyright 2015-17 Chris Anderson
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the Lesser GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# For a copy of the GNU General Public License see
+# <http://www.gnu.org/licenses/>.
+#
+#############################################################################
+*/
 #include "GridFunctionNd/SCC_GridFunction2d.h"
 #include "DoubleVectorNd/SCC_DoubleVector2d.h"
 #include "FFTW3_InterfaceNd/SCC_fftw3_sin2d.h"
 #include "FFTW3_InterfaceNd/SCC_FFT_Nvalues.h"
+
+#include "Timing/ClockIt.h"
 
 //
 // This class implements the identity operator at the boundary
@@ -208,6 +230,7 @@ int main()
 
     fError = f-  fExact;
 
+    printf("\n");
     printf("Error in FFT evaluation of alpha*([D+D-]_x + [D+D-]_y) u   : %10.5e \n",fError.norm2());
 
 
@@ -242,5 +265,67 @@ int main()
 
     printf("Error in FFT valuation of the solution to  alpha*([D+D-]_x + [D+D-]_y) u = f : %10.5e \n",uError.norm2());
 
+
+   //
+    // Timing
+    //
+
+    long panelIncrement = 50;
+    long incrementCount = 4;
+    long repetitions    = 40;
+    double timeTaken    = 0.0;
+
+    ClockIt clockTimer;
+
+
+    printf("\n\nTiming Runs (%ld repetitions) \n\n",repetitions);
+
+    for(long k = 0; k < incrementCount; k++)
+    {
+
+
+    xPanels  = panelIncrement*(k+1);
+	yPanels  = panelIncrement*(k+1);
+
+    f.initialize(xPanels,xMin,xMax,yPanels,yMin,yMax);
+    u.initialize(xPanels,xMin,xMax,yPanels,yMin,yMax);
+
+    u.specify(uFunction);
+    laplaceOp2d.apply(u,f);
+
+    // Solve system
+
+	DFT.initialize(xPanels,yPanels);
+
+    fTransform.initialize(xPanels-1,yPanels-1);
+    fTransform.setToValue(0.0);
+
+    clockTimer.start();
+
+    for(long kTimes = 0; kTimes < repetitions; kTimes++)
+    {
+
+    DFT.fftw2d_sin_forward(f,fTransform);
+
+    for(long kx = 1; kx <= xPanels-1; kx++)
+    {
+    for(long ky = 1; ky <= yPanels-1; ky++)
+    {
+    	lambda = alpha*( (2.0/(hx*hx))*(cos((kx*pi*hx)/LX) - 1.0)
+    	    		   + (2.0/(hy*hy))*(cos((ky*pi*hy)/LY) - 1.0));
+
+    	fTransform(kx-1,ky-1) /= lambda;
+    }}
+
+    DFT.fftw2d_sin_inverse(fTransform,u);      // Note: We can use a GridFunction3d as an argument since it's extended
+                                               // from a DoubleVector3d
+
+    clockTimer.stop();
+    }
+
+    timeTaken = clockTimer.getSecElapsedTime()/(double)repetitions;
+    printf("FFT Solution time (sec) %3ld X %3ld  :  %10.5e \n",xPanels,yPanels,timeTaken);
+
+    }
 }
 

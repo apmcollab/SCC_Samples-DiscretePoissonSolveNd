@@ -10,3 +10,6 @@
 [submodule "SCC/FFTW3_InterfaceNd"]
 	path = SCC/FFTW3_InterfaceNd
 	url = https://github.com/apmcollab/SCC-FFTW3_InterfaceNd.git
+[submodule "SCC/Timing"]
+	path = SCC/Timing
+	url = https://github.com/apmcollab/SCC-Timing.git
