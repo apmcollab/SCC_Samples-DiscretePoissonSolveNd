@@ -6,7 +6,7 @@ A collection of sample programs demonstrating the use of FFT's to create the sol
 ### Prerequisites
 C++11
 ### Versioning
-Release : 17.11.12
+Release : 19.12.16
 ### Authors
 Chris Anderson
 ### License
